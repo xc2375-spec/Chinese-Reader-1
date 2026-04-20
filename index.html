@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Chinese Reader 1</title>
+  <style>
+    :root {
+      --bg: #f7f4ee;
+      --card: #ffffff;
+      --text: #1f2937;
+      --muted: #6b7280;
+      --line: #e5ded3;
+      --accent: #8b5e34;
+      --accent-dark: #6f4624;
+      --soft: #efe5d8;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC",
+        "Microsoft YaHei", Arial, sans-serif;
+      background: linear-gradient(to bottom, #f8f5ef, #f3ede3);
+      color: var(--text);
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 32px 20px 60px;
+    }
+
+    .hero {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 24px;
+      padding: 28px 24px;
+      margin-bottom: 24px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04);
+    }
+
+    .hero h1 {
+      margin: 0 0 8px;
+      font-size: clamp(30px, 5vw, 48px);
+      color: var(--accent-dark);
+    }
+
+    .hero p {
+      margin: 0;
+      font-size: 17px;
+      color: var(--muted);
+      line-height: 1.8;
+    }
+
+    .note {
+      margin-top: 14px;
+      display: inline-block;
+      padding: 8px 14px;
+      background: var(--soft);
+      border-radius: 999px;
+      color: var(--accent-dark);
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    .lesson-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+      gap: 18px;
+    }
+
+    .lesson-card {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 22px;
+      padding: 20px 18px 18px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.035);
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .lesson-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .lesson-number {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: var(--accent);
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 16px;
+      flex-shrink: 0;
+    }
+
+    .lesson-title {
+      margin: 0;
+      font-size: 22px;
+      color: var(--accent-dark);
+    }
+
+    .lesson-subtitle {
+      margin: 2px 0 0;
+      font-size: 14px;
+      color: var(--muted);
+    }
+
+    .links {
+      display: grid;
+      gap: 10px;
+    }
+
+    .link-btn {
+      display: block;
+      text-decoration: none;
+      padding: 14px 16px;
+      border-radius: 14px;
+      border: 1px solid var(--line);
+      background: #fcfaf7;
+      color: var(--text);
+      transition: all 0.18s ease;
+    }
+
+    .link-btn:hover {
+      background: var(--soft);
+      border-color: #d8c4aa;
+      transform: translateY(-1px);
+    }
+
+    .link-main {
+      display: block;
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--accent-dark);
+      margin-bottom: 4px;
+    }
+
+    .link-sub {
+      display: block;
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    .footer {
+      margin-top: 28px;
+      text-align: center;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.7;
+    }
+
+    @media (max-width: 640px) {
+      .container {
+        padding: 20px 14px 40px;
+      }
+
+      .hero {
+        padding: 22px 18px;
+      }
+
+      .lesson-card {
+        padding: 18px 16px 16px;
+      }
+
+      .lesson-title {
+        font-size: 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <section class="hero">
+      <h1>Chinese Reader 1</h1>
+      <p>
+        Vocabulary and practice websites for all 10 lessons.<br />
+        Each lesson includes two reading-based interactive practice sites.
+      </p>
+      <div class="note">Chinese Reader 1 · 10 Lessons · 20 Practice Sites</div>
+    </section>
+
+    <section class="lesson-grid">
+      <article class="lesson-card">
+        <div class="lesson-header">
+          <div class="lesson-number">1</div>
+          <div>
+            <h2 class="lesson-title">Lesson 1</h2>
+            <p class="lesson-subtitle">Reading 1 + Reading 2</p>
+          </div>
+        </div>
+        <div class="links">
+          <a class="link-btn" href="lesson1-reading1/index.html">
+            <span class="link-main">Reading 1 Vocabulary Practice</span>
+            <span class="link-sub">Lesson 1 · Reading 1 interactive site</span>
+          </a>
+          <a class="link-btn" href="lesson1-reading2/index.html">
+            <span class="link-main">Reading 2 Vocabulary Practice</span>
+            <span class="link-sub">Lesson 1 · Reading 2 interactive site</span>
+          </a>
+        </div>
+      </article>
+
+      <article class="lesson-card">
+        <div class="lesson-header">
+          <div class="lesson-number">2</div>
+          <div>
+            <h2 class="lesson-title">Lesson 2</h2>
+            <p class="lesson-subtitle">Reading 1 + Reading 2</p>
+          </div>
+        </div>
+        <div class="links">
+          <a class="link-btn" href="lesson2-reading1/index.html">
+            <span class="link-main">Reading 1 Vocabulary Practice</span>
+            <span class="link-sub">Lesson 2 · Reading 1 interactive site</span>
+          </a>
+          <a class="link-btn" href="lesson2-reading2/index.html">
+            <span class="link-main">Reading 2 Vocabulary Practice</span>
+            <span class="link-sub">Lesson 2 · Reading 2 interactive site</span>
+          </a>
+        </div>
+      </article>
+
+      <article class="lesson-card">
+        <div class="lesson-header">
+          <div class="lesson-number">3</div>
+          <div>
+            <h2 class="lesson-title">Lesson 3</h2>
+            <p class="lesson-subtitle">Reading 1 + Reading 2</p>
+          </div>
+        </div>
+        <div class="links">
+          <a class="link-btn" href="lesson3-reading1/index.html">
+            <span class="link-main">Reading 1 Vocabulary Practice</span>
+            <span class="link-sub">Lesson 3 · Reading 1 interactive site</span>
+          </a>
+          <a class="link-btn" href="lesson3-reading2/index.html">
+            <span class="link-main">Reading 2 Vocabulary Practice</span>
+            <span class="link-sub">Lesson 3 · Reading 2 interactive site</span>
+          </a>
+        </div>
+      </article>
+
+      <article class="lesson-card">
+        <div class="lesson-header">
+          <div class="lesson-number">4</div>
+          <div>
+            <h2 class="lesson-title">Lesson 4</h2>
+            <p class="lesson-subtitle">Reading 1 + Reading 2</p>
+          </div>
+        </div>
+        <div class="links">
+          <a class="link-btn" href="lesson4-reading1/index.html">
+            <span class="link-main">Reading 1 Vocabulary Practice</span>
+            <span class="link-sub">Lesson 4 · Reading 1 interactive site</span>
+          </a>
+          <a class="link-btn" href="lesson4-reading2/index.html">
+            <span class="link-main">Reading 2 Vocabulary Practice</span>
+            <span class="link-sub">Lesson 4 · Reading 2 interactive site</span>
+          </a>
+        </div>
+      </article>
+
+      <article class="lesson-card">
+        <div class="lesson-header">
+          <div class="lesson-number">5</div>
+          <div>
+            <h2 class="lesson-title">Lesson 5</h2>
+            <p class="lesson-subtitle">Reading 1 + Reading 2</p>
+          </div>
+        </div>
+        <div class="links">
+          <a class="link-btn" href="lesson5-reading1/index.html">
+            <span class="link-main">Reading 1 Vocabulary Practice</span>
+            <span class="link-sub">Lesson 5 · Reading 1 interactive site</span>
+          </a>
+          <a class="link-btn" href="lesson5-reading2/index.html">
+            <span class="link-main">Reading 2 Vocabulary Practice</span>
+            <span class="link-sub">Lesson 5 · Reading 2 interactive site</span>
+          </a>
+        </div>
+      </article>
+
+      <article class="lesson-card">
+        <div class="lesson-header">
+          <div class="lesson-number">6</div>
+          <div>
+            <h2 class="lesson-title">Lesson 6</h2>
+            <p class="lesson-subtitle">Reading 1 + Reading 2</p>
+          </div>
+        </div>
+        <div class="links">
+          <a class="link-btn" href="lesson6-reading1/index.html">
+            <span class="link-main">Reading 1 Vocabulary Practice</span>
+            <span class="link-sub">Lesson 6 · Reading 1 interactive site</span>
+          </a>
+          <a class="link-btn" href="lesson6-reading2/index.html">
+            <span class="link-main">Reading 2 Vocabulary Practice</span>
+            <span class="link-sub">Lesson 6 · Reading 2 interactive site</span>
+          </a>
+        </div>
+      </article>
+
+      <article class="lesson-card">
+        <div class="lesson-header">
+          <div class="lesson-number">7</div>
+          <div>
+            <h2 class="lesson-title">Lesson 7</h2>
+            <p class="lesson-subtitle">Reading 1 + Reading 2</p>
+          </div>
+        </div>
+        <div class="links">
+          <a class="link-btn" href="lesson7-reading1/index.html">
+            <span class="link-main">Reading 1 Vocabulary Practice</span>
+            <span class="link-sub">Lesson 7 · Reading 1 interactive site</span>
+          </a>
+          <a class="link-btn" href="lesson7-reading2/index.html">
+            <span class="link-main">Reading 2 Vocabulary Practice</span>
+            <span class="link-sub">Lesson 7 · Reading 2 interactive site</span>
+          </a>
+        </div>
+      </article>
+
+      <article class="lesson-card">
+        <div class="lesson-header">
+          <div class="lesson-number">8</div>
+          <div>
+            <h2 class="lesson-title">Lesson 8</h2>
+            <p class="lesson-subtitle">Reading 1 + Reading 2</p>
+          </div>
+        </div>
+        <div class="links">
+          <a class="link-btn" href="lesson8-reading1/index.html">
+            <span class="link-main">Reading 1 Vocabulary Practice</span>
+            <span class="link-sub">Lesson 8 · Reading 1 interactive site</span>
+          </a>
+          <a class="link-btn" href="lesson8-reading2/index.html">
+            <span class="link-main">Reading 2 Vocabulary Practice</span>
+            <span class="link-sub">Lesson 8 · Reading 2 interactive site</span>
+          </a>
+        </div>
+      </article>
+
+      <article class="lesson-card">
+        <div class="lesson-header">
+          <div class="lesson-number">9</div>
+          <div>
+            <h2 class="lesson-title">Lesson 9</h2>
+            <p class="lesson-subtitle">Reading 1 + Reading 2</p>
+          </div>
+        </div>
+        <div class="links">
+          <a class="link-btn" href="lesson9-reading1/index.html">
+            <span class="link-main">Reading 1 Vocabulary Practice</span>
+            <span class="link-sub">Lesson 9 · Reading 1 interactive site</span>
+          </a>
+          <a class="link-btn" href="lesson9-reading2/index.html">
+            <span class="link-main">Reading 2 Vocabulary Practice</span>
+            <span class="link-sub">Lesson 9 · Reading 2 interactive site</span>
+          </a>
+        </div>
+      </article>
+
+      <article class="lesson-card">
+        <div class="lesson-header">
+          <div class="lesson-number">10</div>
+          <div>
+            <h2 class="lesson-title">Lesson 10</h2>
+            <p class="lesson-subtitle">Reading 1 + Reading 2</p>
+          </div>
+        </div>
+        <div class="links">
+          <a class="link-btn" href="lesson10-reading1/index.html">
+            <span class="link-main">Reading 1 Vocabulary Practice</span>
+            <span class="link-sub">Lesson 10 · Reading 1 interactive site</span>
+          </a>
+          <a class="link-btn" href="lesson10-reading2/index.html">
+            <span class="link-main">Reading 2 Vocabulary Practice</span>
+            <span class="link-sub">Lesson 10 · Reading 2 interactive site</span>
+          </a>
+        </div>
+      </article>
+    </section>
+
+    <div class="footer">
+      Chinese Reader 1 Main Index<br />
+      You can turn each lesson page into a QR code after publishing.
+    </div>
+  </div>
+</body>
+</html>
