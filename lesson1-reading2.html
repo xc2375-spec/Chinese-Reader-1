@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>第一课 1-2 互动词汇与练习</title>
+<style>
+:root{
+  --bg:#f7f3ec; --paper:#fffdf9; --ink:#2f2a24; --muted:#6d6358; --line:#d9cec1;
+  --accent:#8c5a2b; --accent-dark:#6b3e26; --gold:#d8c2a0; --ok:#216e39; --bad:#b83232;
+  --shadow:0 8px 24px rgba(60,40,10,.08); --radius:18px;
+}
+*{box-sizing:border-box}
+body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;background:linear-gradient(180deg,#f5efe6 0%,#faf7f2 100%);color:var(--ink);line-height:1.6}
+.wrap{max-width:1200px;margin:0 auto;padding:18px 14px 64px}
+.hero,.section{background:var(--paper);border:1px solid var(--line);border-radius:26px;box-shadow:var(--shadow)}
+.hero{padding:24px 18px;margin-bottom:18px}
+.section{padding:20px 16px;margin:18px 0}
+h1,h2,h3{margin:.1em 0 .5em}
+h1{font-size:clamp(28px,4vw,42px)}
+h2{font-size:clamp(22px,3vw,30px)}
+h3{font-size:clamp(18px,2vw,22px)}
+.sub{color:var(--muted)}
+.badge{display:inline-block;background:#f0e7da;color:#70431f;border:1px solid #dbc9ae;border-radius:999px;padding:6px 12px;font-size:13px;margin:4px 6px 0 0}
+.toolbar{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
+.search{flex:1;min-width:240px;padding:12px 14px;border:1px solid var(--line);border-radius:14px;font-size:16px}
+.btn{border:none;background:var(--accent);color:#fff;padding:11px 15px;border-radius:14px;font-size:15px;cursor:pointer}
+.btn.secondary{background:#f7f0e5;color:#5f3b20;border:1px solid #d9c7ab}
+.btn.ghost{background:#fff;color:#5f3b20;border:1px solid #ccb89f}
+.grid{display:grid;gap:16px}
+.vocab-grid{grid-template-columns:repeat(auto-fit,minmax(270px,1fr))}
+.card{border:1px solid var(--line);border-radius:20px;padding:16px;background:#fff}
+.card-head{display:flex;justify-content:space-between;gap:12px;align-items:flex-start}
+.hanzi{font-size:34px;font-weight:800}
+.pinyin{font-size:18px;color:#7a5328}
+.pos{font-style:italic;color:var(--muted)}
+.en{font-weight:700}
+.small{font-size:14px;color:var(--muted)}
+.example{background:#faf6ef;border-left:4px solid #d8c2a0;padding:10px 12px;border-radius:10px;margin-top:10px}
+.stroke-panel{display:none;margin-top:12px;padding:12px;border:1px dashed #ccb89f;border-radius:16px;background:#fffaf3}
+.char-picks{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px}
+.char-btn{background:#6b3e26;color:#fff;border:2px solid #6b3e26;border-radius:999px;padding:8px 14px;font-size:20px;cursor:pointer}
+.char-btn.active{background:#4d2917}
+.stroke-wrap{display:flex;flex-wrap:wrap;gap:16px;align-items:flex-start}
+.hand-box{flex:1;min-width:220px}
+.hand-canvas{width:100%;height:180px;border:2px solid #cfb894;border-radius:16px;background:
+linear-gradient(to right, transparent 49.5%, #eadfcf 49.5%, #eadfcf 50.5%, transparent 50.5%),
+linear-gradient(to bottom, transparent 49.5%, #eadfcf 49.5%, #eadfcf 50.5%, transparent 50.5%), #fff}
+.hand-actions{margin-top:8px;display:flex;gap:8px;flex-wrap:wrap}
+.exercise{border-top:1px dashed #ddcfbf;padding-top:16px;margin-top:16px}
+.item{padding:12px 0;border-bottom:1px dashed #eadfd3}
+.prompt{font-size:18px;font-weight:600}
+.answer-row{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-top:8px}
+.text-input{padding:10px 12px;border:1px solid var(--line);border-radius:12px;font-size:16px;min-width:120px}
+.feedback{font-size:14px;font-weight:700}
+.feedback.ok{color:var(--ok)} .feedback.bad{color:var(--bad)}
+.mcq-options{display:grid;gap:8px;margin-top:10px}
+.option{padding:10px 12px;border:1px solid var(--line);border-radius:12px;cursor:pointer;background:#fff}
+.option.selected{border-color:#b9874e;background:#faf1e1}
+.option.correct{border-color:#2f855a;background:#edf9f1}
+.option.wrong{border-color:#c53030;background:#fff0f0}
+.builder{margin-top:10px}
+.dropzone{min-height:62px;border:2px dashed #d8c8b5;border-radius:18px;padding:12px;background:#fffdf9;display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.word-bank{display:flex;gap:10px;flex-wrap:wrap;margin:12px 0}
+.word-chip{background:#6b3e26;color:#fff;border:2px solid #6b3e26;border-radius:999px;padding:10px 16px;font-size:18px;cursor:pointer;-webkit-text-fill-color:#fff}
+.word-chip.used{background:#9b745c;border-color:#9b745c;opacity:.7}
+.inline-gap{display:inline-flex;min-width:92px;justify-content:center;align-items:center;padding:10px 10px;border:2px dashed #cfb894;border-radius:12px;background:#fffdf9;margin:0 6px;cursor:pointer}
+.inline-gap.filled{background:#f3eadf;border-style:solid}
+.mini-choice{background:#6b3e26;color:#fff;border:2px solid #6b3e26;border-radius:999px;padding:8px 14px;cursor:pointer;-webkit-text-fill-color:#fff}
+.table-wrap{overflow:auto}
+table{width:100%;border-collapse:collapse;font-size:15px}
+th,td{border:1px solid #d8cbb9;padding:8px 10px;text-align:center}
+th{background:#f7efe1}
+.ref-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px}
+.ref-card{border:1px solid var(--line);border-radius:18px;padding:14px;background:#fff}
+.short-answer{width:100%;min-height:84px;padding:12px;border:1px solid var(--line);border-radius:14px;font-size:16px}
+.footer-note{margin-top:16px;color:var(--muted);font-size:14px}
+@media (max-width:700px){
+  .hanzi{font-size:30px}
+  .prompt{font-size:17px}
+  .word-chip,.char-btn{font-size:17px}
+}
+</style>
+<script src="https://cdn.jsdelivr.net/npm/hanzi-writer@3.5/dist/hanzi-writer.min.js"></script>
+</head>
+<body>
+<div class="wrap">
+  <section class="hero">
+    <h1>第一课 1-2 互动词汇与练习</h1>
+    <div class="sub">词卡、笔顺动画、跟写框、原题互动、即时反馈。</div>
+    <div style="margin-top:10px">
+      <span class="badge">52 个生词</span>
+      <span class="badge">Comprehensive Exercises</span>
+      <span class="badge">Tips of the Lesson</span>
+      <span class="badge">Mobile-friendly</span>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2>生词 New Words</h2>
+    <div class="toolbar">
+      <input class="search" id="vocabSearch" placeholder="搜索汉字 / pinyin / English..." />
+      <button class="btn secondary" onclick="expandAllStroke()">Expand all stroke panels</button>
+      <button class="btn ghost" onclick="collapseAllStroke()">Collapse all</button>
+    </div>
+    <div class="grid vocab-grid" id="vocabGrid"></div>
+  </section>
+
+  <section class="section">
+    <h2>综合练习 Comprehensive Exercises</h2>
+
+    <div class="exercise">
+      <h3>一、写出下列音节的声、韵母。 (Write out the missing initials and finals.)</h3>
+      <div id="pinyinExercise"></div>
+      <div class="answer-row" style="margin-top:14px">
+        <button class="btn" onclick="checkPinyin()">Check answers</button>
+        <button class="btn ghost" onclick="resetPinyin()">Reset</button>
+        <span id="pinyinSummary" class="feedback"></span>
+      </div>
+    </div>
+
+    <div class="exercise">
+      <h3>二、给拼音加汉字或给汉字加拼音。 (Write out characters for the pinyin and convert characters to pinyin.)</h3>
+      <div id="charExercise"></div>
+      <div class="answer-row" style="margin-top:14px">
+        <button class="btn" onclick="checkChars()">Check answers</button>
+        <button class="btn ghost" onclick="resetChars()">Reset</button>
+        <span id="charSummary" class="feedback"></span>
+      </div>
+    </div>
+
+    <div class="exercise">
+      <h3>三、选择正确答案。 (Choose the most appropriate answer.)</h3>
+      <div id="mcqExercise"></div>
+      <div class="answer-row" style="margin-top:14px">
+        <button class="btn" onclick="checkMcq()">Check answers</button>
+        <button class="btn ghost" onclick="resetMcq()">Reset</button>
+        <span id="mcqSummary" class="feedback"></span>
+      </div>
+    </div>
+
+    <div class="exercise">
+      <h3>四、组词成句。 (Make sentences by using the following words.)</h3>
+      <div id="sentenceExercise"></div>
+    </div>
+
+    <div class="exercise">
+      <h3>五、把所给词语填入适当位置。 (Insert each given word into the appropriate position.)</h3>
+      <div id="insertExercise"></div>
+      <div class="answer-row" style="margin-top:14px">
+        <button class="btn" onclick="checkInsertAll()">Check answers</button>
+        <button class="btn ghost" onclick="resetInsertAll()">Reset</button>
+        <span id="insertSummary" class="feedback"></span>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2>课文提示词汇 / 参考表</h2>
+    <div class="ref-grid">
+      <div class="ref-card"><h3>国家 (guójiā; country)</h3><div>日本: <b>Rìběn</b></div><div>韩国: <b>Hánguó</b></div><div>英国: <b>Yīngguó</b></div><div>法国: <b>Fǎguó</b></div><div>德国: <b>Déguó</b></div><div>俄国: <b>Éguó</b></div></div>
+      <div class="ref-card"><h3>语言 (yǔyán; language)</h3><div>日文: <b>Rìwén</b></div><div>韩文: <b>Hánwén</b></div><div>法文: <b>Fǎwén</b></div><div>德文: <b>Déwén</b></div><div>俄文: <b>Éwén</b></div><div>西班牙文: <b>Xībānyáwén</b></div></div>
+      <div class="ref-card"><h3>学校 (xuéxiào; school)</h3><div>老师 (teacher): <b>lǎoshī</b></div><div>学生 (student): <b>xuésheng</b></div><div>男生 (male student): <b>nánshēng</b></div><div>女生 (female student): <b>nǚshēng</b></div><div>孩子 (child): <b>háizi</b></div><div>最 (the most): <b>zuì</b></div></div>
+      <div class="ref-card">
+        <h3>数字 (shùzì; number)</h3>
+        <div style="display:flex;flex-wrap:wrap;gap:10px 14px"><span><b>零</b> líng (0)</span><span><b>一</b> yī (1)</span><span><b>二</b> èr (2)</span><span><b>三</b> sān (3)</span><span><b>四</b> sì (4)</span><span><b>五</b> wǔ (5)</span><span><b>六</b> liù (6)</span><span><b>七</b> qī (7)</span><span><b>八</b> bā (8)</span><span><b>九</b> jiǔ (9)</span><span><b>十</b> shí (10)</span></div>
+        <div style="margin-top:10px;display:grid;gap:6px"><div><b>十一</b>: shíyī (11)</div><div><b>十二</b>: shí'èr (12)</div><div><b>十三</b>: shísān (13)</div><div><b>二十</b>: èrshí (20)</div><div><b>二十一</b>: èrshíyī (21)</div><div><b>二十九</b>: èrshíjiǔ (29)</div><div><b>九十</b>: jiǔshí (90)</div><div><b>九十九</b>: jiǔshíjiǔ (99)</div><div><b>一百</b>: yìbǎi (100)</div><div><b>一百零一</b>: yìbǎi líng yī (101)</div><div><b>一百零二</b>: yìbǎi líng èr (102)</div><div><b>一百零九</b>: yìbǎi líng jiǔ (109)</div><div><b>一百一十</b>: yìbǎi yī shí (110)</div><div><b>一百一十一</b>: yìbǎi yī shí yī (111)</div><div><b>一百一十二</b>: yìbǎi yī shí èr (112)</div><div><b>一百二十</b>: yìbǎi èr shí (120)</div><div><b>一百二十一</b>: yìbǎi èr shí yī (121)</div><div><b>一百二十二</b>: yìbǎi èr shí èr (122)</div><div><b>二百</b>: èrbǎi (200)</div><div><b>三百</b>: sānbǎi (300)</div><div><b>一千</b>: yìqiān (1000)</div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2>Exercises on tips of the lesson (练习)</h2>
+    <div class="sub" style="margin-bottom:12px">Quickly read the table and answer the questions below. Use short answers where needed.</div>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>年</th><th>中学名称</th><th>学生人数</th><th>男生</th><th>女生</th><th>姓王的学生</th><th>姓李的学生</th><th>姓张的学生</th><th>老师人数</th></tr>
+        </thead>
+        <tbody><tr><td>1950</td><td>上海中学</td><td>183</td><td>90</td><td>93</td><td>21</td><td>33</td><td>29</td><td>22</td></tr><tr><td>1950</td><td>北京中学</td><td>216</td><td>121</td><td>95</td><td>42</td><td>30</td><td>38</td><td>21</td></tr><tr><td>1950</td><td>南京中学</td><td>158</td><td>74</td><td>84</td><td>26</td><td>27</td><td>23</td><td>15</td></tr><tr><td>1980</td><td>上海中学</td><td>265</td><td>135</td><td>130</td><td>40</td><td>32</td><td>28</td><td>30</td></tr><tr><td>1980</td><td>北京中学</td><td>309</td><td>147</td><td>162</td><td>38</td><td>30</td><td>29</td><td>29</td></tr><tr><td>1980</td><td>南京中学</td><td>212</td><td>106</td><td>106</td><td>19</td><td>26</td><td>30</td><td>20</td></tr><tr><td>2000</td><td>上海中学</td><td>280</td><td>142</td><td>138</td><td>24</td><td>31</td><td>27</td><td>27</td></tr><tr><td>2000</td><td>北京中学</td><td>260</td><td>136</td><td>124</td><td>20</td><td>29</td><td>36</td><td>27</td></tr><tr><td>2000</td><td>南京中学</td><td>187</td><td>98</td><td>89</td><td>19</td><td>25</td><td>26</td><td>26</td></tr></tbody>
+      </table>
+    </div>
+
+    <div class="exercise">
+      <h3>1. Fill in the following blanks using Chinese Characters. (用汉字填空)</h3>
+      <div id="tipsFillExercise"></div>
+      <div class="answer-row" style="margin-top:14px">
+        <button class="btn" onclick="checkTipsFill()">Check answers</button>
+        <button class="btn ghost" onclick="resetTipsFill()">Reset</button>
+        <span id="tipsFillSummary" class="feedback"></span>
+      </div>
+    </div>
+
+    <div class="exercise">
+      <h3>2. In the last column, write down your favorite school and state your reasons here.</h3>
+      <textarea class="short-answer" placeholder="我最喜欢……因为……"></textarea>
+    </div>
+
+    <div class="exercise">
+      <h3>3. Answer the following questions. Write short answers. (回答下面的问题，写下简短的答案。)</h3>
+      <div style="display:grid;gap:12px"><div><div class="prompt">1. 你觉得1980年最好的中学是________。为什么？</div><textarea class="short-answer" placeholder="请写简短回答"></textarea></div><div><div class="prompt">2. 要是你有孩子，你要你的孩子上哪个中学？为什么？</div><textarea class="short-answer" placeholder="请写简短回答"></textarea></div></div>
+    </div>
+
+    <div class="footer-note">笔顺动画功能需要联网才能正常显示。跟写框支持手写练习，可点击 Clear 清除重写。</div>
+  </section>
+</div>
+
+<script>
+const vocab = [{"hanzi": "次", "pinyin": "cì", "pos": "m.", "english": "time; occurrence", "usage": "Used as a measure word for the number of times an action happens.", "example": "这是我第一次来北京。 / This is my first time coming to Beijing."}, {"hanzi": "张", "pinyin": "Zhāng", "pos": "n.", "english": "a surname", "usage": "A common Chinese family name. In this lesson it is used in people's names.", "example": "她姓张。 / Her surname is Zhang."}, {"hanzi": "家", "pinyin": "jiā", "pos": "n.", "english": "home; family", "usage": "Can mean a home/house, or a family depending on the context.", "example": "我家有四个人。 / There are four people in my family."}, {"hanzi": "以后", "pinyin": "yǐhòu", "pos": "n./adv.", "english": "after; afterwards; later", "usage": "Used to talk about something that happens later or after a point in time.", "example": "毕业以后，我想工作。 / After graduation, I want to work."}, {"hanzi": "请", "pinyin": "qǐng", "pos": "v.", "english": "invite; ask", "usage": "Often used to invite someone or ask someone politely to do something.", "example": "请你来我家吃饭。 / Please come to my home for dinner."}, {"hanzi": "妈妈", "pinyin": "māma", "pos": "n.", "english": "mother; mom", "usage": "A common family word used in everyday speech.", "example": "我妈妈做饭很好吃。 / My mom cooks very delicious food."}, {"hanzi": "菜", "pinyin": "cài", "pos": "n.", "english": "vegetable; dish", "usage": "Can mean vegetables or a cooked dish on the table.", "example": "这个菜很好吃。 / This dish is delicious."}, {"hanzi": "好吃", "pinyin": "hǎochī", "pos": "sv.", "english": "delicious; tasty", "usage": "Used to describe food that tastes good.", "example": "中国菜很好吃。 / Chinese food is tasty."}, {"hanzi": "非常", "pinyin": "fēicháng", "pos": "adv.", "english": "very; extremely", "usage": "A stronger way to say 'very'. It often comes before adjectives or stative verbs.", "example": "我非常高兴。 / I am extremely happy."}, {"hanzi": "高兴", "pinyin": "gāoxìng", "pos": "sv.", "english": "glad; happy", "usage": "Used to describe feeling happy or pleased.", "example": "见到你，我很高兴。 / I'm happy to see you."}, {"hanzi": "告诉", "pinyin": "gàosu", "pos": "v.", "english": "tell; let know", "usage": "Usually used in the pattern 告诉 + someone + information.", "example": "请告诉我你的名字。 / Please tell me your name."}, {"hanzi": "太", "pinyin": "tài", "pos": "adv.", "english": "too; very", "usage": "Often used before adjectives or verbs to show a high degree.", "example": "这个电影太好了。 / This movie is so good."}, {"hanzi": "这么", "pinyin": "zhème", "pos": "pron./adv.", "english": "so; such; this much", "usage": "Used to show degree, amount, or manner.", "example": "北京怎么这么多人？ / Why are there so many people in Beijing?"}, {"hanzi": "要是", "pinyin": "yàoshi", "pos": "conj.", "english": "if", "usage": "Used to introduce a condition, similar to 'if'.", "example": "要是你有时间，来我家吧。 / If you have time, come to my home."}, {"hanzi": "可以", "pinyin": "kěyǐ", "pos": "v.", "english": "can; may", "usage": "Used for permission or possibility.", "example": "你可以来北京。 / You may come to Beijing."}, {"hanzi": "来", "pinyin": "lái", "pos": "v.", "english": "come", "usage": "Used for movement toward the speaker or a location in focus.", "example": "明天来我家。 / Come to my home tomorrow."}, {"hanzi": "从", "pinyin": "cóng", "pos": "prep.", "english": "from", "usage": "Used to show a starting point in time or place.", "example": "我从上海来。 / I come from Shanghai."}, {"hanzi": "开始", "pinyin": "kāishǐ", "pos": "v.", "english": "begin; start", "usage": "Used to mark the beginning of an action or period.", "example": "电影八点开始。 / The movie starts at eight."}, {"hanzi": "差不多", "pinyin": "chàbuduō", "pos": "adv.", "english": "almost; about; nearly", "usage": "Used when something is approximately the same or nearly done.", "example": "我们差不多到了。 / We are almost there."}, {"hanzi": "星期", "pinyin": "xīngqī", "pos": "n.", "english": "week", "usage": "Used in day-of-the-week expressions such as 星期天.", "example": "一个星期有七天。 / One week has seven days."}, {"hanzi": "父母", "pinyin": "fùmǔ", "pos": "n.", "english": "parents", "usage": "A more formal word for 'parents'.", "example": "我的父母在中国。 / My parents are in China."}, {"hanzi": "快", "pinyin": "kuài", "pos": "sv./adv.", "english": "quick; fast; soon", "usage": "Can describe speed or indicate that something will happen soon.", "example": "我们快毕业了。 / We will graduate soon."}, {"hanzi": "觉得", "pinyin": "juéde", "pos": "v.", "english": "think; feel", "usage": "Often used to express an opinion or feeling.", "example": "我觉得这个菜很好吃。 / I think this dish is tasty."}, {"hanzi": "这里", "pinyin": "zhèlǐ", "pos": "pron.", "english": "here", "usage": "Used to point to the place where the speaker is.", "example": "请来这里。 / Please come here."}, {"hanzi": "跟……一样", "pinyin": "gēn…yíyàng", "pos": "vp.", "english": "the same as", "usage": "Used to compare two things and say they are the same.", "example": "现在的生活跟以前不一样。 / Life now is not the same as before."}, {"hanzi": "自己", "pinyin": "zìjǐ", "pos": "pron.", "english": "oneself; self", "usage": "Used to refer back to the subject: myself, yourself, himself, etc.", "example": "你自己做饭吗？ / Do you cook by yourself?"}, {"hanzi": "里", "pinyin": "lǐ", "pos": "n./post.", "english": "inside; in", "usage": "Often follows a noun to mean 'inside/in'.", "example": "家里有很多画儿。 / There are many pictures at home."}, {"hanzi": "爸爸", "pinyin": "bàba", "pos": "n.", "english": "father; dad", "usage": "A common everyday family word.", "example": "我爸爸在大学工作。 / My dad works at a university."}, {"hanzi": "成了", "pinyin": "chéng le", "pos": "v.", "english": "became", "usage": "Used when something changes into a new state.", "example": "他们成了好朋友。 / They became good friends."}, {"hanzi": "学会", "pinyin": "xuéhuì", "pos": "v.", "english": "learn; master", "usage": "Used when someone has learned how to do something successfully.", "example": "我学会做中国菜了。 / I learned how to cook Chinese food."}, {"hanzi": "简单", "pinyin": "jiǎndān", "pos": "sv.", "english": "simple; easy", "usage": "Used to describe something not complicated.", "example": "这个问题很简单。 / This question is simple."}, {"hanzi": "一些", "pinyin": "yìxiē", "pos": "m.", "english": "some; a few", "usage": "Used to refer to an indefinite small amount or number.", "example": "我有一些中国朋友。 / I have some Chinese friends."}, {"hanzi": "上学", "pinyin": "shàng xué", "pos": "vo.", "english": "go to school", "usage": "Used to talk about attending school.", "example": "孩子每天上学。 / Children go to school every day."}, {"hanzi": "毕业", "pinyin": "bìyè", "pos": "v.", "english": "graduate; finish school", "usage": "Used when finishing a school program.", "example": "我明年毕业。 / I will graduate next year."}, {"hanzi": "一起", "pinyin": "yìqǐ", "pos": "adv.", "english": "together", "usage": "Used when people do something as a group.", "example": "我们一起看电影吧。 / Let's watch a movie together."}, {"hanzi": "来到", "pinyin": "láidào", "pos": "v.", "english": "arrive; come to", "usage": "A more specific verb meaning to come to a place and arrive there.", "example": "他们来到北京工作。 / They came to Beijing to work."}, {"hanzi": "工作", "pinyin": "gōngzuò", "pos": "v.", "english": "work", "usage": "Can be a verb ('to work') or a noun ('job/work').", "example": "我爸爸在中学工作。 / My father works at a middle school."}, {"hanzi": "结婚", "pinyin": "jié hūn", "pos": "vo.", "english": "marry; get married", "usage": "Used to talk about marriage.", "example": "他们很快就结婚了。 / They got married very soon."}, {"hanzi": "画", "pinyin": "huà", "pos": "v.", "english": "paint; draw", "usage": "Used for drawing or painting.", "example": "她喜欢画画儿。 / She likes to draw."}, {"hanzi": "画儿", "pinyin": "huàr", "pos": "n.", "english": "painting; picture", "usage": "A colloquial word for a drawing or painting.", "example": "这是我画的画儿。 / This is the picture I drew."}, {"hanzi": "教", "pinyin": "jiāo", "pos": "v.", "english": "teach; instruct", "usage": "Used when one person teaches another person.", "example": "老师教我们中文。 / The teacher teaches us Chinese."}, {"hanzi": "有名", "pinyin": "yǒumíng", "pos": "sv.", "english": "famous; well-known", "usage": "Used to describe a person or place that many people know.", "example": "上海很有名。 / Shanghai is well-known."}, {"hanzi": "小学", "pinyin": "xiǎoxué", "pos": "n.", "english": "elementary school", "usage": "Used for primary school / elementary school.", "example": "我弟弟在小学上学。 / My younger brother studies in elementary school."}, {"hanzi": "中学", "pinyin": "zhōngxué", "pos": "n.", "english": "middle school", "usage": "In this textbook it refers to middle/high school level school.", "example": "他在北京中学工作。 / He works at Beijing Middle School."}, {"hanzi": "星期天", "pinyin": "xīngqītiān", "pos": "n.", "english": "Sunday", "usage": "A day of the week. Also often said as 星期日.", "example": "星期天我们常常看电影。 / We often watch movies on Sunday."}, {"hanzi": "早上", "pinyin": "zǎoshang", "pos": "n.", "english": "morning", "usage": "Used for the morning time of day.", "example": "我早上七点起床。 / I get up at seven in the morning."}, {"hanzi": "洗澡", "pinyin": "xǐ zǎo", "pos": "vo.", "english": "take a bath; bathe", "usage": "A verb-object phrase used for bathing.", "example": "我晚上洗澡。 / I take a bath at night."}, {"hanzi": "除了……也……", "pinyin": "chúle…yě…", "pos": "conj.", "english": "besides; in addition to", "usage": "Used to add one more item after mentioning another one.", "example": "除了中文，我也会说日文。 / Besides Chinese, I can also speak Japanese."}, {"hanzi": "电影", "pinyin": "diànyǐng", "pos": "n.", "english": "film; movie", "usage": "Used for movies in general.", "example": "我喜欢看中国电影。 / I like watching Chinese movies."}, {"hanzi": "讲", "pinyin": "jiǎng", "pos": "v.", "english": "tell; speak; say", "usage": "Often used for speaking a language or telling a story.", "example": "他会讲英文。 / He can speak English."}, {"hanzi": "以前", "pinyin": "yǐqián", "pos": "n./adv.", "english": "before; in the past", "usage": "Used to refer to an earlier time.", "example": "以前我不会做饭。 / Before, I couldn't cook."}, {"hanzi": "生活", "pinyin": "shēnghuó", "pos": "n.", "english": "life", "usage": "A common noun for daily life or life in general.", "example": "现在的生活很忙。 / Life now is busy."}];
+const pinyinItems = [{"id": 1, "prompt": "dì yí __ i", "meaning": "the first time", "answer": "c"}, {"id": 2, "prompt": "__ ù", "meaning": "go", "answer": "q"}, {"id": 3, "prompt": "xǐ __ ǎo", "meaning": "take a bath", "answer": "z"}, {"id": 4, "prompt": "yì x __", "meaning": "some", "answer": "iē"}, {"id": 5, "prompt": "j __ hūn", "meaning": "get married", "answer": "ié"}, {"id": 6, "prompt": "diàn y __", "meaning": "movie", "answer": "ǐng"}, {"id": 7, "prompt": "shēng h __", "meaning": "life", "answer": "uó"}, {"id": 8, "prompt": "yì q __", "meaning": "together", "answer": "ǐ"}, {"id": 9, "prompt": "hǎo __ ī", "meaning": "tasty", "answer": "ch"}, {"id": 10, "prompt": "__ ī", "meaning": "eat", "answer": "ch"}, {"id": 11, "prompt": "__ āo wǒ", "meaning": "teach me", "answer": "ji"}, {"id": 12, "prompt": "dà x __", "meaning": "college", "answer": "ué"}, {"id": 13, "prompt": "j __ de", "meaning": "feel / think", "answer": "ué"}, {"id": 14, "prompt": "y __ wei", "meaning": "because", "answer": "īn"}, {"id": 15, "prompt": "yǐ h __", "meaning": "after", "answer": "òu"}, {"id": 16, "prompt": "xīng q __", "meaning": "week", "answer": "ī"}];
+const charItems = [{"id": 1, "given": "fēicháng", "type": "pinyin", "answer": "非常"}, {"id": 2, "given": "juéde", "type": "pinyin", "answer": "觉得"}, {"id": 3, "given": "gāoxìng", "type": "pinyin", "answer": "高兴"}, {"id": 4, "given": "fùmǔ", "type": "pinyin", "answer": "父母"}, {"id": 5, "given": "diànyǐng", "type": "pinyin", "answer": "电影"}, {"id": 6, "given": "shēnghuó", "type": "pinyin", "answer": "生活"}, {"id": 7, "given": "自己", "type": "hanzi", "answer": "zìjǐ"}, {"id": 8, "given": "一样", "type": "hanzi", "answer": "yíyàng"}, {"id": 9, "given": "家里", "type": "hanzi", "answer": "jiālǐ"}, {"id": 10, "given": "上海", "type": "hanzi", "answer": "Shànghǎi"}, {"id": 11, "given": "毕业", "type": "hanzi", "answer": "bìyè"}, {"id": 12, "given": "工作", "type": "hanzi", "answer": "gōngzuò"}, {"id": 13, "given": "画画儿", "type": "hanzi", "answer": "huà huàr"}, {"id": 14, "given": "差不多", "type": "hanzi", "answer": "chàbuduō"}, {"id": 15, "given": "以前", "type": "hanzi", "answer": "yǐqián"}];
+const mcqItems = [{"q": "小王，她是______你画画儿的老师吗？", "options": ["说", "教", "叫"], "answer": 1}, {"q": "我们______星期天都工作。", "options": ["一个", "每天", "每个"], "answer": 2}, {"q": "他们认识两个月______，就结婚了。", "options": ["以前", "以后", "的时候"], "answer": 1}, {"q": "同学们都______他的日文非常好。", "options": ["觉得", "认识", "喜欢"], "answer": 0}, {"q": "我们现在的生活______以前的生活不一样。", "options": ["跟", "在", "从"], "answer": 0}, {"q": "中国电影，外国电影，我们的老师______爱看。", "options": ["一起", "都", "也"], "answer": 1}, {"q": "山口______我们明天去他家吃饭。", "options": ["讲", "说", "请"], "answer": 2}, {"q": "______你们不喜欢上海，可以来北京。", "options": ["要是", "除了", "因为"], "answer": 0}, {"q": "除了中文，我______会说日文。", "options": ["很", "也", "常"], "answer": 1}, {"q": "你______我们老师叫什么名字吗？", "options": ["知道", "学会", "觉得"], "answer": 0}];
+const sentenceItems = [{"id": 1, "tokens": ["认识", "都", "他妈妈", "不", "我们"], "answer": "我们都不认识他妈妈。"}, {"id": 2, "tokens": ["你", "我也", "小王", "除了", "喜欢"], "answer": "除了你，我也喜欢小王。"}, {"id": 3, "tokens": ["你", "觉得", "太喜欢", "我", "唱歌", "了"], "answer": "你觉得我太喜欢唱歌了。"}, {"id": 4, "tokens": ["成了", "我们", "好朋友", "很快", "就"], "answer": "我们很快就成了好朋友。"}, {"id": 5, "tokens": ["北京", "这么多", "没有", "人", "以前"], "answer": "以前北京没有这么多人。"}, {"id": 6, "tokens": ["很有名", "画画儿", "教我", "的", "老师"], "answer": "教我画画儿的老师很有名。"}, {"id": 7, "tokens": ["来", "他们", "中国", "工作", "明年"], "answer": "明年他们来中国工作。"}, {"id": 8, "tokens": ["每个", "电影", "他", "都去", "星期天", "看"], "answer": "他每个星期天都去看电影。"}];
+const insertItems = [{"id": 1, "parts": ["小张", "喜欢", "上海", "。"], "word": "很", "answerPos": 1}, {"id": 2, "parts": ["我", "要跟我朋友去", "看电影", "。"], "word": "明天晚上", "answerPos": 0}, {"id": 3, "parts": ["毕业", "，我们要去外国", "工作。"], "word": "以后", "answerPos": 1}, {"id": 4, "parts": ["我们", "不知道他要", "吃什么。"], "word": "都", "answerPos": 1}, {"id": 5, "parts": ["在日本的时候，我们常常", "做饭", "。"], "word": "一起", "answerPos": 1}, {"id": 6, "parts": ["他说他要", "王老师", "学习中国历史", "。"], "word": "跟", "answerPos": 0}];
+const tipsFill = [{"q": "1980年北京中学一共有______个学生。", "answer": "三百零九"}, {"q": "2000年上海中学有______个学生姓王。", "answer": "二十四"}, {"q": "1980年南京中学有______个姓李的学生。", "answer": "二十六"}, {"q": "2000年______姓张的学生最多。", "answer": "北京中学"}, {"q": "1950年______的学生人数最少。", "answer": "南京中学"}, {"q": "1980年北京中学的______最多。", "answer": "女生"}, {"q": "2000年南京中学有______个老师。", "answer": "二十六"}, {"q": "1950年______中学男生多，女生少。", "answer": "北京"}, {"q": "1980年上海中学姓______的最多。", "answer": "王"}, {"q": "2000年上海中学有______个男生。", "answer": "一百四十二"}];
+
+const vocabGrid = document.getElementById('vocabGrid');
+
+function makeStrokePanel(idx, word){
+  const chars = [...word.hanzi].filter(ch => /[\u4e00-\u9fff]/.test(ch));
+  const buttons = chars.map((ch, i) => `<button class="char-btn ${i===0?'active':''}" onclick="showStroke(${idx}, '${ch}', this)">${ch}</button>`).join('');
+  return `<div class="stroke-panel" id="stroke-panel-${idx}"><div class="small" style="margin-bottom:8px">Tap a character to see the stroke animation. Use the handwriting box to trace it yourself.</div><div class="char-picks">${buttons}</div><div class="stroke-wrap"><div id="writer-target-${idx}" style="width:160px;height:160px;border:1px solid #d7c4a5;border-radius:16px;background:#fff"></div><div class="hand-box"><div class="small">Handwriting box</div><canvas id="hand-canvas-${idx}" class="hand-canvas"></canvas><div class="hand-actions"><button class="btn secondary" onclick="clearCanvas(${idx})">Clear</button></div></div></div></div>`;
+}
+function renderVocab(list){
+  vocabGrid.innerHTML = list.map((w, idx) => `<div class="card"><div class="card-head"><div><div class="hanzi">${w.hanzi}</div><div class="pinyin">${w.pinyin}</div></div><div style="text-align:right"><div class="pos">${w.pos}</div><div class="en">${w.english}</div></div></div><div class="small"><b>Usage note:</b> ${w.usage}</div><div class="example"><b>Typical example:</b><br>${w.example}</div><div class="answer-row" style="margin-top:12px"><button class="btn" onclick="toggleStroke(${idx})">Stroke animation + writing box</button></div>${makeStrokePanel(idx, w)}</div>`).join('');
+  list.forEach((_, idx)=>setupCanvas(idx));
+}
+function toggleStroke(idx){ const panel = document.getElementById(`stroke-panel-${idx}`); panel.style.display = panel.style.display === 'block' ? 'none' : 'block'; if(panel.style.display === 'block'){ const firstBtn = panel.querySelector('.char-btn'); if(firstBtn) showStroke(idx, firstBtn.textContent, firstBtn);} }
+function expandAllStroke(){ vocab.forEach((_, idx)=>{const p=document.getElementById(`stroke-panel-${idx}`); if(p){p.style.display='block'; const b=p.querySelector('.char-btn'); if(b) showStroke(idx,b.textContent,b);}}); }
+function collapseAllStroke(){ document.querySelectorAll('.stroke-panel').forEach(p=>p.style.display='none'); }
+function showStroke(idx, ch, btn){
+  document.querySelectorAll(`#stroke-panel-${idx} .char-btn`).forEach(b=>b.classList.remove('active'));
+  if(btn) btn.classList.add('active');
+  const targetId = `writer-target-${idx}`;
+  const target = document.getElementById(targetId);
+  if(!target || typeof HanziWriter === 'undefined') { target.innerHTML = '<div style="padding:20px;color:#8a6d4a">HanziWriter needs internet connection.</div>'; return; }
+  target.innerHTML = '';
+  const writer = HanziWriter.create(targetId, ch, {width:160,height:160,padding:8,showOutline:true,showCharacter:false,strokeAnimationSpeed:1,delayBetweenStrokes:90});
+  writer.animateCharacter();
+}
+function setupCanvas(idx){
+  const canvas = document.getElementById(`hand-canvas-${idx}`);
+  if(!canvas) return;
+  const ratio = window.devicePixelRatio || 1;
+  const rect = canvas.getBoundingClientRect();
+  canvas.width = rect.width * ratio; canvas.height = rect.height * ratio;
+  const ctx = canvas.getContext('2d'); ctx.scale(ratio, ratio); ctx.lineWidth = 4; ctx.lineCap = 'round'; ctx.strokeStyle = '#3f2b1b';
+  let drawing = false;
+  function pos(e){ const r = canvas.getBoundingClientRect(); const t = e.touches ? e.touches[0] : e; return {x:t.clientX-r.left, y:t.clientY-r.top}; }
+  function start(e){ drawing=true; const p=pos(e); ctx.beginPath(); ctx.moveTo(p.x,p.y); e.preventDefault(); }
+  function move(e){ if(!drawing) return; const p=pos(e); ctx.lineTo(p.x,p.y); ctx.stroke(); e.preventDefault(); }
+  function end(){ drawing=false; }
+  canvas.addEventListener('mousedown',start); canvas.addEventListener('mousemove',move); window.addEventListener('mouseup',end);
+  canvas.addEventListener('touchstart',start,{passive:false}); canvas.addEventListener('touchmove',move,{passive:false}); window.addEventListener('touchend',end);
+}
+function clearCanvas(idx){ const canvas = document.getElementById(`hand-canvas-${idx}`); const ctx = canvas.getContext('2d'); ctx.clearRect(0,0,canvas.width,canvas.height); }
+document.getElementById('vocabSearch').addEventListener('input', e => { const q = e.target.value.trim().toLowerCase(); const filtered = vocab.filter(v => [v.hanzi,v.pinyin,v.english,v.usage].join(' ').toLowerCase().includes(q)); renderVocab(filtered); });
+renderVocab(vocab);
+
+function renderPinyin(){ const box = document.getElementById('pinyinExercise'); box.innerHTML = pinyinItems.map(item => `<div class="item"><div class="prompt">${item.id}. ${item.prompt} <span class="small">— ${item.meaning}</span></div><div class="answer-row"><input id="py-${item.id}" class="text-input" /><span id="fb-py-${item.id}" class="feedback"></span></div></div>`).join('');}
+function checkPinyin(){ let ok=0; pinyinItems.forEach(item=>{ const val = (document.getElementById(`py-${item.id}`).value||'').trim().toLowerCase().replace(/\s+/g,''); const ans = item.answer.toLowerCase().replace(/\s+/g,''); const fb = document.getElementById(`fb-py-${item.id}`); if(val===ans){fb.textContent='✓ Correct'; fb.className='feedback ok'; ok++;} else {fb.textContent=`✗ Answer: ${item.answer}`; fb.className='feedback bad';}}); const s = document.getElementById('pinyinSummary'); s.textContent = `${ok} / ${pinyinItems.length} correct`; s.className = 'feedback ' + (ok===pinyinItems.length?'ok':'bad');}
+function resetPinyin(){ pinyinItems.forEach(item=>{document.getElementById(`py-${item.id}`).value=''; document.getElementById(`fb-py-${item.id}`).textContent='';}); document.getElementById('pinyinSummary').textContent='';}
+renderPinyin();
+
+function renderChars(){ const box = document.getElementById('charExercise'); box.innerHTML = charItems.map(item => `<div class="item"><div class="prompt">${item.id}. ${item.given}</div><div class="answer-row"><input id="ch-${item.id}" class="text-input" style="min-width:200px" /><span id="fb-ch-${item.id}" class="feedback"></span></div></div>`).join('');}
+function normalizePinyin(s){ return s.toLowerCase().replace(/\s+/g,'').replace(/[·'.]/g,''); }
+function checkChars(){ let ok=0; charItems.forEach(item=>{ const val = (document.getElementById(`ch-${item.id}`).value||'').trim(); const fb = document.getElementById(`fb-ch-${item.id}`); const good = item.type==='pinyin' ? val===item.answer : normalizePinyin(val)===normalizePinyin(item.answer); if(good){fb.textContent='✓ Correct'; fb.className='feedback ok'; ok++;} else {fb.textContent=`✗ Answer: ${item.answer}`; fb.className='feedback bad';}}); const s = document.getElementById('charSummary'); s.textContent = `${ok} / ${charItems.length} correct`; s.className = 'feedback ' + (ok===charItems.length?'ok':'bad');}
+function resetChars(){ charItems.forEach(item=>{document.getElementById(`ch-${item.id}`).value=''; document.getElementById(`fb-ch-${item.id}`).textContent='';}); document.getElementById('charSummary').textContent='';}
+renderChars();
+
+let mcqState = {};
+function renderMcq(){ const box = document.getElementById('mcqExercise'); box.innerHTML = mcqItems.map((item,idx) => `<div class="item"><div class="prompt">${idx+1}. ${item.q}</div><div class="mcq-options">${item.options.map((op,i)=>`<div class="option" id="mcq-${idx}-${i}" onclick="selectMcq(${idx},${i})">${String.fromCharCode(65+i)}. ${op}</div>`).join('')}</div><div id="mcqfb-${idx}" class="feedback" style="margin-top:8px"></div></div>`).join('');}
+function selectMcq(q,i){ mcqState[q]=i; mcqItems[q].options.forEach((_,j)=>document.getElementById(`mcq-${q}-${j}`).className='option'+(j===i?' selected':'')); }
+function checkMcq(){ let ok=0; mcqItems.forEach((item,idx)=>{ const chosen = mcqState[idx]; const fb = document.getElementById(`mcqfb-${idx}`); item.options.forEach((_,j)=>{ const el = document.getElementById(`mcq-${idx}-${j}`); if(j===item.answer) el.classList.add('correct'); if(chosen===j && j!==item.answer) el.classList.add('wrong');}); if(chosen===item.answer){fb.textContent='✓ Correct'; fb.className='feedback ok'; ok++;} else {fb.textContent=`✗ Answer: ${item.options[item.answer]}`; fb.className='feedback bad';}}); const s = document.getElementById('mcqSummary'); s.textContent = `${ok} / ${mcqItems.length} correct`; s.className = 'feedback ' + (ok===mcqItems.length?'ok':'bad');}
+function resetMcq(){ mcqState={}; renderMcq(); document.getElementById('mcqSummary').textContent=''; }
+renderMcq();
+
+let builtSentences = {};
+function renderSentenceExercise(){ const box = document.getElementById('sentenceExercise'); box.innerHTML = sentenceItems.map(item => `<div class="item"><div class="prompt">${item.id}.</div><div class="builder"><div class="dropzone" id="drop-${item.id}"></div><div class="word-bank" id="bank-${item.id}">${item.tokens.map((tok,idx)=>`<button class="word-chip" id="chip-${item.id}-${idx}" onclick="addToken(${item.id},${idx},'${tok}')">${tok}</button>`).join('')}</div><div class="answer-row"><button class="btn secondary" onclick="undoToken(${item.id})">撤回一个</button><button class="btn ghost" onclick="clearSentence(${item.id})">清空这一题</button><button class="btn" onclick="checkSentence(${item.id})">检查答案</button><span id="fb-sent-${item.id}" class="feedback"></span></div></div></div>`).join('');}
+function refreshSentence(id){ const arr = builtSentences[id] || []; document.getElementById(`drop-${id}`).innerHTML = arr.map(t=>`<span class="word-chip" style="cursor:default">${t}</span>`).join('');}
+function addToken(id, idx, tok){ builtSentences[id] = builtSentences[id] || []; const chip=document.getElementById(`chip-${id}-${idx}`); if(chip.classList.contains('used')) return; builtSentences[id].push(tok); chip.classList.add('used'); refreshSentence(id); }
+function undoToken(id){ const arr = builtSentences[id] || []; const last = arr.pop(); if(last!==undefined){ const target=[...document.querySelectorAll(`#bank-${id} .word-chip`)].find(el=>el.textContent===last && el.classList.contains('used')); if(target) target.classList.remove('used'); } refreshSentence(id);}
+function clearSentence(id){ builtSentences[id]=[]; document.querySelectorAll(`#bank-${id} .word-chip`).forEach(el=>el.classList.remove('used')); document.getElementById(`fb-sent-${id}`).textContent=''; refreshSentence(id); }
+function normalizeSentence(s){return s.replace(/[，。！？、\s]/g,'');}
+function checkSentence(id){ const item = sentenceItems.find(x=>x.id===id); const made = (builtSentences[id]||[]).join('') + '。'; const fb = document.getElementById(`fb-sent-${id}`); if(normalizeSentence(made)===normalizeSentence(item.answer)){fb.textContent='✓ Correct';fb.className='feedback ok';} else {fb.textContent=`✗ Suggested answer: ${item.answer}`;fb.className='feedback bad';}}
+renderSentenceExercise();
+
+let insertState = {};
+function renderInsert(){
+  const box = document.getElementById('insertExercise');
+  box.innerHTML = insertItems.map(item => {
+    const sentence = item.parts.map((part,idx)=> (idx>0 ? `<span class="inline-gap" id="gap-${item.id}-${idx-1}">＋</span>` : '') + part).join('');
+    return `<div class="item"><div class="prompt">${item.id}. ${sentence} <span class="small">（${item.word}）</span></div><div class="word-bank"><button class="mini-choice" onclick="placeInsertWord(${item.id}, '${item.word}')">${item.word}</button></div><div class="small">Tap the word, then tap the position where it should go.</div><div class="answer-row"><button class="btn secondary" onclick="clearInsert(${item.id})">清空这一题</button><span id="fb-insert-${item.id}" class="feedback"></span></div></div>`;
+  }).join('');
+  insertItems.forEach(item=>{ for(let i=0;i<item.parts.length-1;i++){ const gap = document.getElementById(`gap-${item.id}-${i}`); gap.onclick = ()=>chooseGap(item.id,i); }});
+}
+function placeInsertWord(id, word){ insertState[id] = insertState[id] || {word:word, pos:null}; }
+function chooseGap(id, pos){ insertState[id] = insertState[id] || {word: insertItems.find(x=>x.id===id).word, pos:null}; insertState[id].pos = pos; const item = insertItems.find(x=>x.id===id); for(let i=0;i<item.parts.length-1;i++){ const gap = document.getElementById(`gap-${id}-${i}`); gap.classList.toggle('filled', i===pos); gap.textContent = i===pos ? item.word : '＋';}}
+function clearInsert(id){ delete insertState[id]; const item = insertItems.find(x=>x.id===id); for(let i=0;i<item.parts.length-1;i++){ const gap = document.getElementById(`gap-${id}-${i}`); gap.classList.remove('filled'); gap.textContent='＋'; } document.getElementById(`fb-insert-${id}`).textContent='';}
+function checkInsertAll(){ let ok=0; insertItems.forEach(item=>{ const st = insertState[item.id]; const fb = document.getElementById(`fb-insert-${item.id}`); if(st && st.pos===item.answerPos){fb.textContent='✓ Correct'; fb.className='feedback ok'; ok++;} else {fb.textContent=`✗ Correct position: ${item.answerPos+1}`; fb.className='feedback bad';}}); const s = document.getElementById('insertSummary'); s.textContent = `${ok} / ${insertItems.length} correct`; s.className = 'feedback ' + (ok===insertItems.length?'ok':'bad');}
+function resetInsertAll(){ insertItems.forEach(item=>clearInsert(item.id)); document.getElementById('insertSummary').textContent='';}
+renderInsert();
+
+function renderTipsFill(){ const box = document.getElementById('tipsFillExercise'); box.innerHTML = tipsFill.map((item,idx)=>`<div class="item"><div class="prompt">${idx+1}. ${item.q}</div><div class="answer-row"><input id="tips-${idx}" class="text-input" style="min-width:180px" /><span id="fb-tips-${idx}" class="feedback"></span></div></div>`).join('');}
+function checkTipsFill(){ let ok=0; tipsFill.forEach((item,idx)=>{ const val=(document.getElementById(`tips-${idx}`).value||'').trim(); const fb=document.getElementById(`fb-tips-${idx}`); if(val===item.answer){fb.textContent='✓ Correct'; fb.className='feedback ok'; ok++;} else {fb.textContent=`✗ Answer: ${item.answer}`; fb.className='feedback bad';}}); const s=document.getElementById('tipsFillSummary'); s.textContent=`${ok} / ${tipsFill.length} correct`; s.className='feedback '+(ok===tipsFill.length?'ok':'bad');}
+function resetTipsFill(){ tipsFill.forEach((_,idx)=>{document.getElementById(`tips-${idx}`).value='';document.getElementById(`fb-tips-${idx}`).textContent='';}); document.getElementById('tipsFillSummary').textContent='';}
+renderTipsFill();
+</script>
+</body>
+</html>
